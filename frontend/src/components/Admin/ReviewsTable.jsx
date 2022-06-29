@@ -68,27 +68,52 @@ const ReviewsTable = () => {
         dispatch(getAdminProducts());
     }, [dispatch, error, deleteError, isDeleted, enqueueSnackbar]);
     const deleteReviewHandler = (id) => {
-        dispatch(deleteReview(id, productId));
+        dispatch(deleteReview(id.id, id.productID));
+        console.log(id);
     };
-    console.log(products);
+    const arrReview = products
+        .filter((item) => item.reviews.length > 0)
+        .map((item) => {
+            return {
+                id: item._id,
+                name: item.name,
+                reviews: item.reviews,
+            };
+        });
+    const finalArr = arrReview.map((item) => {
+        return item.reviews.map((e) => {
+            return {
+                productID: item.id,
+                productName: item.name,
+                userName: e.name,
+                userID: e.user,
+                rating: e.rating,
+                comment: e.comment,
+                id: e._id,
+            };
+        });
+    });
+    console.log(finalArr.flat());
     const allReview = products.map((product) => {
         return product.reviews;
     });
+
     const newReview = allReview.flat();
-    console.log(allReview);
+    // console.log(allReview);
+    // console.log(newReview);
     const columns = [
-        // {
-        //     field: "product_id",
-        //     headerName: "Product ID",
-        //     minWidth: 200,
-        //     flex: 0.5,
-        // },
-        // {
-        //     field: "product_name",
-        //     headerName: "Product Name",
-        //     minWidth: 200,
-        //     flex: 0.5,
-        // },
+        {
+            field: "productID",
+            headerName: "ID sản phẩm",
+            minWidth: 200,
+            flex: 0.5,
+        },
+        {
+            field: "productName",
+            headerName: "Tên sản phẩm",
+            minWidth: 200,
+            flex: 0.5,
+        },
         {
             field: "id",
             headerName: "Review ID",
@@ -96,16 +121,16 @@ const ReviewsTable = () => {
             flex: 0.5,
         },
         {
-            field: "user",
-            headerName: "User",
+            field: "userName",
+            headerName: "Người dùng",
             minWidth: 150,
             flex: 0.5,
         },
         {
             field: "rating",
-            headerName: "Rating",
+            headerName: "Đánh giá",
             type: "number",
-            minWidth: 200,
+            minWidth: 150,
             flex: 0.3,
             align: "left",
             headerAlign: "left",
@@ -122,7 +147,7 @@ const ReviewsTable = () => {
         },
         {
             field: "comment",
-            headerName: "Comment",
+            headerName: "Nhận xét",
             minWidth: 200,
             flex: 0.5,
         },
@@ -138,37 +163,33 @@ const ReviewsTable = () => {
                     <Actions
                         editRoute={"review"}
                         deleteHandler={deleteReviewHandler}
-                        id={params.row.id}
+                        id={params.row}
                     />
                 );
             },
         },
     ];
 
-    const rows = [];
+    const rows = finalArr.flat();
 
-    newReview &&
-        newReview.forEach((rev) => {
-            rows.push({
-                id: rev._id,
-                rating: rev.rating,
-                comment: rev.comment,
-                user: rev.name,
-            });
-        });
+    // finalArr.flat() &&
+    //     finalArr.flat().forEach((rev) => {
+    //         rows.push({
+    //             id: rev._id,
+    //             rating: rev.rating,
+    //             comment: rev.comment,
+    //             user: rev.name,
+    //         });
+    //     });
 
+    console.log(rows);
     return (
         <>
             {loading && <BackdropLoader />}
             <div className="flex justify-between items-center gap-2 sm:gap-12">
-                <h1 className="text-lg font-medium uppercase">reviews</h1>
-                <input
-                    type="text"
-                    placeholder="Product ID"
-                    value={productId}
-                    onChange={(e) => setProductId(e.target.value)}
-                    className="outline-none border-0 rounded p-2 w-full shadow hover:shadow-lg"
-                />
+                <h1 className="text-lg font-medium uppercase">
+                    Danh sách nhận xét
+                </h1>
             </div>
             <div
                 className="bg-white rounded-xl shadow-lg w-full"

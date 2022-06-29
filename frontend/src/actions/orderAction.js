@@ -1,5 +1,28 @@
 import axios from "axios";
-import { ALL_ORDERS_FAIL, ALL_ORDERS_REQUEST, ALL_ORDERS_SUCCESS, CLEAR_ERRORS, DELETE_ORDER_FAIL, DELETE_ORDER_REQUEST, DELETE_ORDER_SUCCESS, MY_ORDERS_FAIL, MY_ORDERS_REQUEST, MY_ORDERS_SUCCESS, NEW_ORDER_FAIL, NEW_ORDER_REQUEST, NEW_ORDER_SUCCESS, ORDER_DETAILS_FAIL, ORDER_DETAILS_REQUEST, ORDER_DETAILS_SUCCESS, PAYMENT_STATUS_FAIL, PAYMENT_STATUS_REQUEST, PAYMENT_STATUS_SUCCESS, UPDATE_ORDER_FAIL, UPDATE_ORDER_REQUEST, UPDATE_ORDER_SUCCESS } from "../constants/orderConstants";
+import {
+    ALL_ORDERS_FAIL,
+    ALL_ORDERS_REQUEST,
+    ALL_ORDERS_SUCCESS,
+    CLEAR_ERRORS,
+    DELETE_ORDER_FAIL,
+    DELETE_ORDER_REQUEST,
+    DELETE_ORDER_SUCCESS,
+    MY_ORDERS_FAIL,
+    MY_ORDERS_REQUEST,
+    MY_ORDERS_SUCCESS,
+    NEW_ORDER_FAIL,
+    NEW_ORDER_REQUEST,
+    NEW_ORDER_SUCCESS,
+    ORDER_DETAILS_FAIL,
+    ORDER_DETAILS_REQUEST,
+    ORDER_DETAILS_SUCCESS,
+    PAYMENT_STATUS_FAIL,
+    PAYMENT_STATUS_REQUEST,
+    PAYMENT_STATUS_SUCCESS,
+    UPDATE_ORDER_FAIL,
+    UPDATE_ORDER_REQUEST,
+    UPDATE_ORDER_SUCCESS,
+} from "../constants/orderConstants";
 
 // New Order
 export const newOrder = (order) => async (dispatch) => {
@@ -12,13 +35,12 @@ export const newOrder = (order) => async (dispatch) => {
             },
         };
 
-        const { data } = await axios.post('/api/v1/order/new', order, config);
+        const { data } = await axios.post("/api/v1/order/new", order, config);
 
         dispatch({
             type: NEW_ORDER_SUCCESS,
             payload: data,
-        })
-
+        });
     } catch (error) {
         dispatch({
             type: NEW_ORDER_FAIL,
@@ -32,13 +54,12 @@ export const myOrders = () => async (dispatch) => {
     try {
         dispatch({ type: MY_ORDERS_REQUEST });
 
-        const { data } = await axios.get('/api/v1/orders/me');
+        const { data } = await axios.get("/api/v1/orders/me");
 
         dispatch({
             type: MY_ORDERS_SUCCESS,
             payload: data.orders,
-        })
-
+        });
     } catch (error) {
         dispatch({
             type: MY_ORDERS_FAIL,
@@ -57,8 +78,7 @@ export const getOrderDetails = (id) => async (dispatch) => {
         dispatch({
             type: ORDER_DETAILS_SUCCESS,
             payload: data.order,
-        })
-
+        });
     } catch (error) {
         dispatch({
             type: ORDER_DETAILS_FAIL,
@@ -77,8 +97,7 @@ export const getPaymentStatus = (id) => async (dispatch) => {
         dispatch({
             type: PAYMENT_STATUS_SUCCESS,
             payload: data.txn,
-        })
-
+        });
     } catch (error) {
         dispatch({
             type: PAYMENT_STATUS_FAIL,
@@ -92,13 +111,12 @@ export const getAllOrders = () => async (dispatch) => {
     try {
         dispatch({ type: ALL_ORDERS_REQUEST });
 
-        const { data } = await axios.get('/api/v1/admin/orders');
+        const { data } = await axios.get("/api/v1/admin/orders");
 
         dispatch({
             type: ALL_ORDERS_SUCCESS,
             payload: data.orders,
-        })
-
+        });
     } catch (error) {
         dispatch({
             type: ALL_ORDERS_FAIL,
@@ -110,6 +128,7 @@ export const getAllOrders = () => async (dispatch) => {
 // Update Order ---ADMIN
 export const updateOrder = (id, order) => async (dispatch) => {
     try {
+        console.log(id, order);
         dispatch({ type: UPDATE_ORDER_REQUEST });
 
         const config = {
@@ -118,13 +137,16 @@ export const updateOrder = (id, order) => async (dispatch) => {
             },
         };
 
-        const { data } = await axios.put(`/api/v1/admin/order/${id}`, order, config);
+        const { data } = await axios.put(
+            `/api/v1/admin/order/${id}`,
+            order,
+            config
+        );
 
         dispatch({
             type: UPDATE_ORDER_SUCCESS,
             payload: data.success,
         });
-
     } catch (error) {
         dispatch({
             type: UPDATE_ORDER_FAIL,
@@ -143,8 +165,7 @@ export const deleteOrder = (id) => async (dispatch) => {
         dispatch({
             type: DELETE_ORDER_SUCCESS,
             payload: data.success,
-        })
-
+        });
     } catch (error) {
         dispatch({
             type: DELETE_ORDER_FAIL,
@@ -156,4 +177,4 @@ export const deleteOrder = (id) => async (dispatch) => {
 // Clear All Errors
 export const clearErrors = () => (dispatch) => {
     dispatch({ type: CLEAR_ERRORS });
-}
+};

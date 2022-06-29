@@ -43,7 +43,7 @@ const OrderTable = () => {
     const deleteOrderHandler = (id) => {
         dispatch(deleteOrder(id));
     };
-
+    console.log(orders);
     const columns = [
         {
             field: "id",
@@ -60,16 +60,20 @@ const OrderTable = () => {
                 return (
                     <>
                         {params.row.status === "Delivered" ? (
-                            <span className="text-sm bg-green-100 p-1 px-2 font-medium rounded-full text-green-800">
+                            <span className="text-sm bg-[#0ea5e9] p-1 px-2 font-medium rounded-full text-white">
                                 Đã nhận hàng
                             </span>
                         ) : params.row.status === "Shipped" ? (
-                            <span className="text-sm bg-yellow-100 p-1 px-2 font-medium rounded-full text-yellow-800">
+                            <span className="text-sm bg-[#22c55e] p-1 px-2 font-medium rounded-full text-white">
                                 Đã gửi hàng
                             </span>
-                        ) : (
-                            <span className="text-sm bg-purple-100 p-1 px-2 font-medium rounded-full text-purple-800">
+                        ) : params.row.status === "Processing" ? (
+                            <span className="text-sm bg-[#f97316] p-1 px-2 font-medium rounded-full text-white">
                                 Đang xử lý
+                            </span>
+                        ) : (
+                            <span className="text-sm bg-[#dc2626] p-1 px-2 font-medium rounded-full text-white">
+                                Đơn đã huỷ
                             </span>
                         )}
                     </>
@@ -109,11 +113,13 @@ const OrderTable = () => {
             sortable: false,
             renderCell: (params) => {
                 return (
-                    <Actions
-                        editRoute={"order"}
-                        deleteHandler={deleteOrderHandler}
-                        id={params.row.id}
-                    />
+                    <>
+                        <Actions
+                            editRoute={"order"}
+                            deleteHandler={deleteOrderHandler}
+                            id={params.row.id}
+                        />
+                    </>
                 );
             },
         },

@@ -16,6 +16,12 @@ import { Link } from "react-router-dom";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import moment from "moment";
 import CartItem from "../Cart/CartItem";
+
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogTitle from "@mui/material/DialogTitle";
+import DialogContent from "@mui/material/DialogContent";
+
 const UpdateOrder = () => {
     const dispatch = useDispatch();
     const { enqueueSnackbar } = useSnackbar();
@@ -54,7 +60,20 @@ const UpdateOrder = () => {
         e.preventDefault();
         const formData = new FormData();
         formData.set("status", status);
+        console.log(formData.values);
+        console.log(params.id);
         dispatch(updateOrder(params.id, formData));
+    };
+
+    const handleCancelOrder = (e) => {
+        const formData = new FormData();
+        formData.set("status", "Cancel");
+        dispatch(updateOrder(params.id, formData));
+        setOpen(false);
+    };
+    const [open, setOpen] = useState(false);
+    const handleClose = () => {
+        setOpen(false);
     };
     console.log(order);
     return (
@@ -63,6 +82,34 @@ const UpdateOrder = () => {
                 <Loading />
             ) : (
                 <>
+                    <Dialog
+                        open={open}
+                        onClose={handleClose}
+                        aria-labelledby="alert-dialog-title"
+                    >
+                        <DialogTitle id="alert-dialog-title">
+                            {"Huỷ đơn hàng?"}
+                        </DialogTitle>
+                        <DialogContent>
+                            <p className="text-gray-500">
+                                Bạn có muốn huỷ đơn hàng này ?
+                            </p>
+                        </DialogContent>
+                        <DialogActions>
+                            <button
+                                onClick={handleClose}
+                                className="py-2 px-6 rounded shadow bg-gray-400 hover:bg-gray-500 text-white"
+                            >
+                                No
+                            </button>
+                            <button
+                                onClick={handleCancelOrder}
+                                className="py-2 px-6 ml-4 rounded bg-red-600 hover:bg-red-700 text-white shadow"
+                            >
+                                Yes
+                            </button>
+                        </DialogActions>
+                    </Dialog>
                     {order && order.user && order.shippingInfo && (
                         <div className="flex flex-col gap-4">
                             <Link
@@ -177,10 +224,18 @@ const UpdateOrder = () => {
                                         Cập nhật
                                     </button>
                                 </form>
+                                {order.orderStatus === "Processing" && (
+                                    <button
+                                        onClick={() => setOpen(true)}
+                                        className="bg-red-400 p-2.5 text-white font-medium rounded shadow hover:shadow-lg"
+                                    >
+                                        Huỷ đơn hàng
+                                    </button>
+                                )}
                                 <div className="sm:w-full border-r">
                                     <div className="flex flex-col gap-3 my-8 mx-10">
                                         <h3 className="font-medium text-lg">
-                                            Thông tin đơn hàng{" "}
+                                            Danh sách sản phẩm{" "}
                                         </h3>
                                         {order.orderItems &&
                                             order.orderItems.map((item) => {

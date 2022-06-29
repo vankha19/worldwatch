@@ -2,12 +2,22 @@ import { useSnackbar } from "notistack";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { clearErrors, getOrderDetails } from "../../actions/orderAction";
+import {
+    clearErrors,
+    getOrderDetails,
+    updateOrder,
+} from "../../actions/orderAction";
 import Loader from "../Layouts/Loader";
 import TrackStepper from "./TrackStepper";
 import MinCategory from "../Layouts/MinCategory";
 import MetaData from "../Layouts/MetaData";
 import { formatNumber } from "../../utils/functions";
+import { UPDATE_ORDER_RESET } from "../../constants/orderConstants";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogTitle from "@mui/material/DialogTitle";
+import DialogContent from "@mui/material/DialogContent";
+import { useState } from "react";
 const OrderDetails = () => {
     const dispatch = useDispatch();
     const { enqueueSnackbar } = useSnackbar();
@@ -25,6 +35,21 @@ const OrderDetails = () => {
         dispatch(getOrderDetails(params.id));
     }, [dispatch, error, params.id, enqueueSnackbar]);
     console.log(order);
+
+    const handleCancelOrder = (e) => {
+        const formData = new FormData();
+        formData.set("status", "Cancel");
+        dispatch(updateOrder(params.id, formData));
+        enqueueSnackbar("Huỷ đơn hàng thành công", {
+            variant: "success",
+        });
+        setOpen(false);
+    };
+    const [open, setOpen] = useState(false);
+    const handleClose = () => {
+        setOpen(false);
+    };
+    console.log(order);
     return (
         <>
             <MinCategory />
@@ -33,6 +58,34 @@ const OrderDetails = () => {
                     <Loader />
                 ) : (
                     <>
+                        <Dialog
+                            open={open}
+                            onClose={handleClose}
+                            aria-labelledby="alert-dialog-title"
+                        >
+                            <DialogTitle id="alert-dialog-title">
+                                {"Huỷ đơn hàng?"}
+                            </DialogTitle>
+                            <DialogContent>
+                                <p className="text-gray-500">
+                                    Bạn có muốn huỷ đơn hàng này ?
+                                </p>
+                            </DialogContent>
+                            <DialogActions>
+                                <button
+                                    onClick={handleClose}
+                                    className="py-2 px-6 rounded shadow bg-gray-400 hover:bg-gray-500 text-white"
+                                >
+                                    No
+                                </button>
+                                <button
+                                    onClick={handleCancelOrder}
+                                    className="py-2 px-6 ml-4 rounded bg-red-600 hover:bg-red-700 text-white shadow"
+                                >
+                                    Yes
+                                </button>
+                            </DialogActions>
+                        </Dialog>
                         {order && order.user && order.shippingInfo && (
                             <div className="flex flex-col gap-4 max-w-6xl mx-auto">
                                 <div className="flex bg-white shadow rounded-sm min-w-full">
@@ -80,6 +133,17 @@ const OrderDetails = () => {
                                                         : "Thanh toán khi nhận hàng"}
                                                 </p>
                                             </div>
+                                            {order.orderStatus ===
+                                                "Processing" && (
+                                                <button
+                                                    onClick={() =>
+                                                        setOpen(true)
+                                                    }
+                                                    className="bg-red-400 p-2.5 text-white font-medium rounded shadow hover:shadow-lg"
+                                                >
+                                                    Huỷ đơn hàng
+                                                </button>
+                                            )}
                                         </div>
                                     </div>
                                     <div className="flex flex-col w-full sm:w-1/2 justify-center">

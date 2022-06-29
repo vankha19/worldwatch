@@ -4,7 +4,6 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import Searchbar from "./Searchbar";
-import logo from "../../../assets/images/logo.png";
 import PrimaryDropDownMenu from "./PrimaryDropDownMenu";
 import { useState } from "react";
 import { useSelector } from "react-redux";

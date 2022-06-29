@@ -29,11 +29,12 @@ const MainData = () => {
         dispatch(getAllUsers());
     }, [dispatch]);
 
-    let totalAmount = orders?.reduce(
-        (total, order) => total + order.totalPrice,
-        0
+    let totalAmount = orders
+        ?.filter((item) => item.orderStatus !== "Cancel")
+        .reduce((total, order) => total + order.totalPrice, 0);
+    let totalOrderSuccess = orders?.filter(
+        (item) => item.orderStatus !== "Cancel"
     );
-
     const months = [
         "Tháng 1",
         "Tháng 2",
@@ -62,9 +63,94 @@ const MainData = () => {
                             (od) =>
                                 new Date(od.createdAt).getMonth() === i &&
                                 new Date(od.createdAt).getFullYear() ===
-                                    date.getFullYear()
+                                    date.getFullYear() &&
+                                od.orderStatus !== "Cancel"
                         )
                         .reduce((total, od) => total + od.totalPrice, 0)
+                ),
+                yAxisID: "y",
+            },
+            {
+                label: `Số lượng đơn hàng`,
+                borderColor: "#166534",
+                backgroundColor: "#bfdbfe",
+                yAxisID: "y1",
+                data: months.map(
+                    (m, i) =>
+                        orders?.filter(
+                            (od) =>
+                                new Date(od.createdAt).getMonth() === i &&
+                                new Date(od.createdAt).getFullYear() ===
+                                    date.getFullYear() &&
+                                od.orderStatus !== "Cancel"
+                        ).length
+                ),
+            },
+        ],
+    };
+
+    // Order status
+    const lineState2 = {
+        labels: months,
+        datasets: [
+            {
+                label: `Số lượng đơn đã nhận`,
+                borderColor: "#0284c7",
+                backgroundColor: "#bfdbfe",
+                data: months.map(
+                    (m, i) =>
+                        orders?.filter(
+                            (od) =>
+                                new Date(od.createdAt).getMonth() === i &&
+                                new Date(od.createdAt).getFullYear() ===
+                                    date.getFullYear() &&
+                                od.orderStatus === "Delivered"
+                        ).length
+                ),
+            },
+            {
+                label: `Số lượng đặt đang giao`,
+                borderColor: "#059669",
+                backgroundColor: "#bfdbfe",
+                data: months.map(
+                    (m, i) =>
+                        orders?.filter(
+                            (od) =>
+                                new Date(od.createdAt).getMonth() === i &&
+                                new Date(od.createdAt).getFullYear() ===
+                                    date.getFullYear() &&
+                                od.orderStatus === "Shipped"
+                        ).length
+                ),
+            },
+            {
+                label: `SL đơn đang xử lý`,
+                borderColor: "#f59e0b",
+                backgroundColor: "#bfdbfe",
+                data: months.map(
+                    (m, i) =>
+                        orders?.filter(
+                            (od) =>
+                                new Date(od.createdAt).getMonth() === i &&
+                                new Date(od.createdAt).getFullYear() ===
+                                    date.getFullYear() &&
+                                od.orderStatus === "Processing"
+                        ).length
+                ),
+            },
+            {
+                label: `Đơn đã huỷ`,
+                borderColor: "#dc2626",
+                backgroundColor: "#bfdbfe",
+                data: months.map(
+                    (m, i) =>
+                        orders?.filter(
+                            (od) =>
+                                new Date(od.createdAt).getMonth() === i &&
+                                new Date(od.createdAt).getFullYear() ===
+                                    date.getFullYear() &&
+                                od.orderStatus === "Cancel"
+                        ).length
                 ),
             },
         ],
@@ -129,6 +215,21 @@ const MainData = () => {
                 text: "Biểu đồ thể hiện doanh thu theo từng tháng",
             },
         },
+        scales: {
+            y: {
+                type: "linear",
+                display: true,
+                position: "left",
+            },
+            y1: {
+                type: "linear",
+                display: true,
+                position: "right",
+                grid: {
+                    drawOnChartArea: false,
+                },
+            },
+        },
     };
     const options2 = {
         responsive: true,
@@ -136,6 +237,16 @@ const MainData = () => {
             title: {
                 display: true,
                 text: "Biểu đồ thể hiện số lượng sản phẩm theo từng danh mục",
+            },
+        },
+    };
+
+    const options3 = {
+        responsive: true,
+        plugins: {
+            title: {
+                display: true,
+                text: "Biểu đồ thể hiện trạng thái đơn hàng",
             },
         },
     };
@@ -152,9 +263,11 @@ const MainData = () => {
                 </div>
                 <div className="flex flex-col bg-[#818cf8] text-white gap-2 rounded-xl shadow-lg hover:shadow-xl p-6">
                     <h4 className="text-gray-100 font-medium">
-                        Tổng số lượng đơn hàng
+                        Tổng SL đơn hàng thành công
                     </h4>
-                    <h2 className="text-2xl font-bold">{orders?.length}</h2>
+                    <h2 className="text-2xl font-bold">
+                        {totalOrderSuccess?.length}
+                    </h2>
                 </div>
                 <div className="flex flex-col bg-[#a78bfa] text-white gap-2 rounded-xl shadow-lg hover:shadow-xl p-6">
                     <h4 className="text-gray-100 font-medium">
@@ -176,13 +289,18 @@ const MainData = () => {
                 </div>
             </div>
 
+            <div className="flex flex-col sm:justify-between gap-3 sm:gap-8 min-w-full">
+                <div className="bg-white rounded-xl h-auto w-full shadow-lg p-2">
+                    <Line options={options3} data={lineState2} />
+                </div>
+            </div>
             <div className="flex flex-col sm:flex-row justify-between gap-3 sm:gap-8 min-w-full mb-6">
                 <div className="bg-white rounded-xl h-auto w-full shadow-lg p-2">
                     <Bar options={options2} data={barState} />
                 </div>
             </div>
             <div className="flex flex-col sm:flex-row justify-center gap-3 sm:gap-8 min-w-full mb-6">
-                <div className="bg-white rounded-xl shadow-lg p-4 text-center">
+                {/* <div className="bg-white rounded-xl shadow-lg p-4 text-center">
                     <span className="font-medium uppercase text-gray-800">
                         Stock Status
                     </span>
@@ -193,7 +311,7 @@ const MainData = () => {
                         Order Status
                     </span>
                     <Pie data={pieState} />
-                </div>
+                </div> */}
             </div>
         </>
     );

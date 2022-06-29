@@ -15,7 +15,7 @@ import RadioButtonUncheckedIcon from "@mui/icons-material/RadioButtonUnchecked";
 import CircleIcon from "@mui/icons-material/Circle";
 import { Link } from "react-router-dom";
 import { formatDate, formatNumber } from "../../utils/functions";
-const orderStatus = ["Processing", "Shipped", "Delivered"];
+const orderStatus = ["Processing", "Shipped", "Delivered", "Cancel"];
 const dt = new Date();
 const ordertime = [dt.getMonth(), dt.getFullYear() - 1, dt.getFullYear() - 2];
 
@@ -152,28 +152,44 @@ const MyOrders = () => {
                                             }
                                             name="orderstatus-radio-buttons"
                                             value={status}
+                                            defaultValue="Processing"
                                         >
-                                            {orderStatus.map((el, i) => (
-                                                <FormControlLabel
-                                                    value={el}
-                                                    control={
-                                                        <Radio size="small" />
-                                                    }
-                                                    key={i}
-                                                    label={
-                                                        <span className="text-sm">
-                                                            {el ===
-                                                                "Processing" &&
-                                                                " Đang xử lý"}
-                                                            {el === "Shipped" &&
-                                                                " Đang giao hàng"}
-                                                            {el ===
-                                                                "Delivered" &&
-                                                                " Đã nhận hàng"}
-                                                        </span>
-                                                    }
-                                                />
-                                            ))}
+                                            {orderStatus
+                                                .slice(0, 3)
+                                                .map((el, i) => (
+                                                    <FormControlLabel
+                                                        value={el}
+                                                        control={
+                                                            <Radio size="small" />
+                                                        }
+                                                        key={i}
+                                                        label={
+                                                            <span className="text-sm">
+                                                                {el ===
+                                                                    "Cancel" &&
+                                                                    " Đơn hàng đã bị huỷ"}
+                                                                {el ===
+                                                                    "Processing" &&
+                                                                    " Đang xử lý"}
+                                                                {el ===
+                                                                    "Shipped" &&
+                                                                    " Đang giao hàng"}
+                                                                {el ===
+                                                                    "Delivered" &&
+                                                                    " Đã nhận hàng"}
+                                                            </span>
+                                                        }
+                                                    />
+                                                ))}
+                                            <FormControlLabel
+                                                value={"Cancel"}
+                                                control={<Radio size="small" />}
+                                                label={
+                                                    <span className="text-sm">
+                                                        Đơn hàng đã bị huỷ
+                                                    </span>
+                                                }
+                                            />
                                         </RadioGroup>
                                     </FormControl>
                                 </div>
@@ -279,6 +295,11 @@ const MyOrders = () => {
                                                             </p>
                                                             <p className="text-xs text-gray-500">
                                                                 Trạng thái:
+                                                                {(orderStatus ===
+                                                                    "" ||
+                                                                    orderStatus ===
+                                                                        "Cancel") &&
+                                                                    "Đơn hàng đã bị huỷ"}
                                                                 {orderStatus ===
                                                                     "Processing" &&
                                                                     " Đang xử lý"}
