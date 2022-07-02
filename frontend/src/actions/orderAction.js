@@ -128,7 +128,6 @@ export const getAllOrders = () => async (dispatch) => {
 // Update Order ---ADMIN
 export const updateOrder = (id, order) => async (dispatch) => {
     try {
-        console.log(id, order);
         dispatch({ type: UPDATE_ORDER_REQUEST });
 
         const config = {

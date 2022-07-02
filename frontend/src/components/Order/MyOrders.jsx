@@ -46,9 +46,6 @@ const MyOrders = () => {
 
     useEffect(() => {
         setSearch("");
-        // console.log(status);
-        // console.log(typeof orderTime);
-        // console.log(orderTime);
 
         if (!status && +orderTime === 0) {
             setFilteredOrders(orders);
@@ -93,7 +90,6 @@ const MyOrders = () => {
         }
         // eslint-disable-next-line
     }, [status, orderTime]);
-    console.log(orders);
     const searchOrders = (e) => {
         e.preventDefault();
         if (!search.trim()) {
@@ -118,8 +114,6 @@ const MyOrders = () => {
         setStatus("");
         setOrderTime(0);
     };
-    console.log(orders);
-    console.log(filteredOrders);
     return (
         <>
             <MinCategory />

@@ -83,6 +83,26 @@ const Sidebar = ({ activeTab }) => {
                     >
                         Thông tin cá nhân
                     </Link>
+                    <Link
+                        to="/wishlist"
+                        className={`${
+                            activeTab === "profile"
+                                ? "bg-blue-50 text-primary-blue font-medium"
+                                : "hover:bg-blue-50 hover:text-primary-blue"
+                        } p-3 pl-14`}
+                    >
+                        Danh sách yêu thích
+                    </Link>
+                    <Link
+                        to="/password/update"
+                        className={`${
+                            activeTab === "profile"
+                                ? "bg-blue-50 text-primary-blue font-medium"
+                                : "hover:bg-blue-50 hover:text-primary-blue"
+                        } p-3 pl-14`}
+                    >
+                        Đổi mật khẩu
+                    </Link>
                 </div>
 
                 <div className="flex items-center gap-5 px-4 py-4 border-b">

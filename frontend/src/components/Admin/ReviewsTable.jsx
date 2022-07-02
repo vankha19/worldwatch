@@ -69,7 +69,6 @@ const ReviewsTable = () => {
     }, [dispatch, error, deleteError, isDeleted, enqueueSnackbar]);
     const deleteReviewHandler = (id) => {
         dispatch(deleteReview(id.id, id.productID));
-        console.log(id);
     };
     const arrReview = products
         .filter((item) => item.reviews.length > 0)
@@ -93,14 +92,11 @@ const ReviewsTable = () => {
             };
         });
     });
-    console.log(finalArr.flat());
     const allReview = products.map((product) => {
         return product.reviews;
     });
 
     const newReview = allReview.flat();
-    // console.log(allReview);
-    // console.log(newReview);
     const columns = [
         {
             field: "productID",
@@ -182,7 +178,6 @@ const ReviewsTable = () => {
     //         });
     //     });
 
-    console.log(rows);
     return (
         <>
             {loading && <BackdropLoader />}

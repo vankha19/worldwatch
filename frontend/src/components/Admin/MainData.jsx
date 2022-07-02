@@ -14,7 +14,6 @@ const MainData = () => {
     const { products } = useSelector((state) => state.products);
     const { orders } = useSelector((state) => state.allOrders);
     const { users } = useSelector((state) => state.users);
-    console.log(orders);
     let outOfStock = 0;
 
     products?.forEach((item) => {
@@ -200,13 +199,7 @@ const MainData = () => {
         ],
     };
 
-    // console.log(orders.map((item) => item.orderItems));
-    // categories.map(
-    //     (cat) =>
-    //         products?.filter((item) => item.category === cat).length
-    // )
     const newArr = orders?.map((item) => item.orderItems);
-    console.log(newArr?.flat());
     const options1 = {
         responsive: true,
         plugins: {

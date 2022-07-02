@@ -34,7 +34,6 @@ const OrderDetails = () => {
         }
         dispatch(getOrderDetails(params.id));
     }, [dispatch, error, params.id, enqueueSnackbar]);
-    console.log(order);
 
     const handleCancelOrder = (e) => {
         const formData = new FormData();
@@ -49,7 +48,6 @@ const OrderDetails = () => {
     const handleClose = () => {
         setOpen(false);
     };
-    console.log(order);
     return (
         <>
             <MinCategory />

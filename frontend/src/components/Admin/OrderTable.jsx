@@ -43,7 +43,6 @@ const OrderTable = () => {
     const deleteOrderHandler = (id) => {
         dispatch(deleteOrder(id));
     };
-    console.log(orders);
     const columns = [
         {
             field: "id",

@@ -5,7 +5,7 @@ const Stepper = ({ activeStep, children }) => {
     const { user } = useSelector((state) => state.user);
     const { shippingInfo, cartItems } = useSelector((state) => state.cart);
 
-    const address = `${shippingInfo.address}, ${shippingInfo.city}, ${shippingInfo.state} - ${shippingInfo.pincode}`;
+    const address = `${shippingInfo.address}, ${shippingInfo.city}`;
 
     const steps = [
         {
@@ -29,7 +29,9 @@ const Stepper = ({ activeStep, children }) => {
         {
             label: "ĐƠN ĐẶT HÀNG",
             desc: (
-                <p className="font-medium text-sm">{cartItems.length} Item</p>
+                <p className="font-medium text-sm">
+                    {cartItems.length} Sản phẩm
+                </p>
             ),
         },
         {

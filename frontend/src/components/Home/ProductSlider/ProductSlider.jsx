@@ -12,8 +12,6 @@ const ProductSlider = ({
     valueFilter = "",
 }) => {
     const { loading, products } = useSelector((state) => state.products);
-    // console.log(products.filter((product) => product.gender === "Female"));
-    console.log(filterKey, valueFilter);
     let newProducts;
     if (filterKey === "gender") {
         newProducts = products.filter(
@@ -34,7 +32,6 @@ const ProductSlider = ({
         newProducts = products;
     }
 
-    console.log(newProducts);
     return (
         <section className="bg-white w-full shadow overflow-hidden">
             {/* <!-- header --> */}

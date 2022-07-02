@@ -73,24 +73,17 @@ const UpdateProfile = () => {
     return (
         <>
             {loading && <BackdropLoader />}
-            <main className="w-full mt-12 sm:pt-20 sm:mt-0">
+            <main className="w-2/4 mt-12 mx-auto sm:pt-20 sm:mt-0">
                 {/* <!-- row --> */}
                 <div className="flex sm:w-4/6 sm:mt-4 m-auto mb-7 bg-white shadow-lg">
                     {/* <!-- sidebar column  --> */}
-                    <div className="loginSidebar bg-primary-blue px-9 py-10 hidden sm:flex flex-col gap-4 w-2/5">
-                        <h1 className="font-medium text-white text-3xl">
-                            Looks like you're new here!
-                        </h1>
-                        <p className="text-gray-200 text-lg pr-2">
-                            Sign up with your mobile number to get started
-                        </p>
-                    </div>
+
                     {/* <!-- sidebar column  --> */}
 
                     {/* <!-- signup column --> */}
                     <div className="flex-1 overflow-hidden">
                         <h2 className="text-center text-2xl font-medium mt-6 text-gray-800">
-                            Update Profile
+                            Cập nhật thông tin tài khoản
                         </h2>
                         {/* <!-- personal info procedure container --> */}
                         <form
@@ -103,7 +96,7 @@ const UpdateProfile = () => {
                                 <div className="flex flex-col w-full justify-between sm:flex-col gap-3 items-center">
                                     <TextField
                                         fullWidth
-                                        label="Full Name"
+                                        label="Họ tên"
                                         name="name"
                                         value={name}
                                         onChange={(e) =>
@@ -117,17 +110,15 @@ const UpdateProfile = () => {
                                         type="email"
                                         name="email"
                                         value={email}
-                                        onChange={(e) =>
-                                            setEmail(e.target.value)
-                                        }
                                         required
+                                        disabled
                                     />
                                 </div>
                                 {/* <!-- input container column --> */}
 
                                 {/* <!-- gender input --> */}
                                 <div className="flex gap-4 items-center">
-                                    <h2 className="text-md">Your Gender :</h2>
+                                    <h2 className="text-md">Giới tính :</h2>
                                     <div
                                         className="flex items-center gap-6"
                                         id="radioInput"
@@ -145,7 +136,7 @@ const UpdateProfile = () => {
                                                     setGender(e.target.value)
                                                 }
                                                 control={<Radio required />}
-                                                label="Male"
+                                                label="Nam"
                                             />
                                             <FormControlLabel
                                                 name="gender"
@@ -155,7 +146,7 @@ const UpdateProfile = () => {
                                                     setGender(e.target.value)
                                                 }
                                                 control={<Radio required />}
-                                                label="Female"
+                                                label="Nữ"
                                             />
                                         </RadioGroup>
                                     </div>
@@ -176,20 +167,20 @@ const UpdateProfile = () => {
                                             onChange={handleUpdateDataChange}
                                             className="hidden"
                                         />
-                                        Choose File
+                                        Chọn file
                                     </label>
                                 </div>
                                 <button
                                     type="submit"
-                                    className="text-white py-3 w-full bg-primary-orange shadow rounded-sm font-medium hover:shadow-lg"
+                                    className="text-white py-3 w-full bg-primary-blue shadow rounded-sm font-medium hover:shadow-lg"
                                 >
-                                    Update
+                                    Cập nhật
                                 </button>
                                 <Link
                                     className="hover:bg-gray-100 text-primary-blue text-center py-3 w-full shadow border rounded-sm font-medium"
                                     to="/account"
                                 >
-                                    Cancel
+                                    Huỷ
                                 </Link>
                             </div>
                         </form>

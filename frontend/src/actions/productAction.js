@@ -47,7 +47,6 @@ export const getProducts =
     async (dispatch) => {
         try {
             dispatch({ type: ALL_PRODUCTS_REQUEST });
-            console.log(category);
             const s = search.replace("?", "");
             let url = `/api/v1/products?keyword=${keyword}&price[gte]=${price[0]}&price[lte]=${price[1]}&ratings[gte]=${ratings}&page=${currentPage}`;
             if (search) {
@@ -56,10 +55,8 @@ export const getProducts =
                 }&price[gte]=${price[0]}&price[lte]=${
                     price[1]
                 }&ratings[gte]=${ratings}&page=${currentPage}`;
-                console.log(url);
             } else if (category) {
                 url = `/api/v1/products?keyword=${keyword}&category=${category}&price[gte]=${price[0]}&price[lte]=${price[1]}&ratings[gte]=${ratings}&page=${currentPage}`;
-                console.log(url);
             }
 
             const { data } = await axios.get(url);

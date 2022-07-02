@@ -8,7 +8,6 @@ const sendEmail = async (options) => {
         templateId: options.templateId,
         dynamic_template_data: options.data,
     };
-    console.log(msg);
     sgMail
         .send(msg)
         .then(() => {

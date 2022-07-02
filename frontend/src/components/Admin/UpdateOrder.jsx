@@ -60,8 +60,6 @@ const UpdateOrder = () => {
         e.preventDefault();
         const formData = new FormData();
         formData.set("status", status);
-        console.log(formData.values);
-        console.log(params.id);
         dispatch(updateOrder(params.id, formData));
     };
 
@@ -75,7 +73,6 @@ const UpdateOrder = () => {
     const handleClose = () => {
         setOpen(false);
     };
-    console.log(order);
     return (
         <>
             {loading ? (

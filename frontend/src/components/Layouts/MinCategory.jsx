@@ -18,7 +18,7 @@ const categories = [
 const MinCategory = (props) => {
     return (
         <section
-            className={`z-[1000] hidden sm:block bg-white w-full px-2 sm:px-12 overflow-visible border-b mt-14 ${
+            className={`z-[1000] hidden sm:block bg-white w-full px-2 sm:px-12 overflow-visible border-b mt-16 ${
                 props.fixed ? "fixed z-10 mt-4" : ""
             }`}
         >

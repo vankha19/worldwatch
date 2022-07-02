@@ -123,7 +123,6 @@ const Login = () => {
                                             Đăng nhập
                                         </button>
 
-                                        <p className="underline mt-10">HOẶC</p>
                                         <div className="mt-2 flex gap-5 justify-center">
                                             {/* <div className="flex px-8  py-2 border border-1 cursor-pointer rounded-sm hover:bg-primary-blue hover:text-white ">
                                                 <AppleIcon></AppleIcon>
@@ -137,21 +136,6 @@ const Login = () => {
                                                 <GoogleIcon></GoogleIcon>
                                                 <p>Apple</p>
                                             </div> */}
-                                            <div className="flex px-8  py-2 border border-1 cursor-pointer rounded-sm hover:bg-primary-blue hover:text-white ">
-                                                <GoogleLogin
-                                                    clientId="1034839797593-3bn21l32fkaca9atc2lcaq7d5l751neb.apps.googleusercontent.com"
-                                                    buttonText="Đăng nhập với Google"
-                                                    onSuccess={
-                                                        handleSuccessLogin
-                                                    }
-                                                    onFailure={
-                                                        handleFailureLogin
-                                                    }
-                                                    cookiePolicy={
-                                                        "single_host_origin"
-                                                    }
-                                                />
-                                            </div>
                                         </div>
                                         <div></div>
                                     </div>

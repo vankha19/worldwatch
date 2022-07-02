@@ -41,7 +41,6 @@ const Payment = () => {
         0
     );
     const totalPriceUsd = +(totalPrice / 23320).toFixed(2);
-    console.log(totalPriceUsd);
 
     const submitHandler = async (e) => {
         e.preventDefault();
@@ -60,7 +59,6 @@ const Payment = () => {
                     },
                     totalPrice,
                 };
-                console.log(data);
                 dispatch(newOrder(data));
 
                 dispatch(emptyCart());
@@ -81,7 +79,6 @@ const Payment = () => {
                     isPaid: false,
                     totalPrice,
                 };
-                console.log(data);
             }
         } catch (error) {
             setPayDisable(false);
@@ -89,7 +86,6 @@ const Payment = () => {
         }
     };
     const handlePaymentMode = (e) => {
-        console.log(e.target.value);
         setPayMode(e.target.value);
     };
     useEffect(() => {
@@ -125,7 +121,6 @@ const Payment = () => {
             isPaid: true,
             totalPrice,
         };
-        console.log(data);
         dispatch(newOrder(data));
 
         dispatch(emptyCart());

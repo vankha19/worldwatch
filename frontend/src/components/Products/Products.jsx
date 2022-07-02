@@ -48,7 +48,6 @@ const Products = () => {
     const [s1, s2] = location.search.split("=");
     const priceHandler = (e, newPrice) => {
         setPrice(newPrice);
-        console.log(newPrice);
     };
 
     const clearFilters = () => {
@@ -75,7 +74,6 @@ const Products = () => {
         error,
         enqueueSnackbar,
     ]);
-    console.log(products);
     const priceList = [
         {
             label: "Dưới 1 triệu",
@@ -97,6 +95,13 @@ const Products = () => {
             label: "Trên 8 triệu",
             price: [8000000, 88000000],
         },
+    ];
+    const priceList2 = [
+        "0, 1000000",
+        "1000000, 3000000",
+        "3000000, 5000000",
+        "5000000, 8000000",
+        "8000000, 88000000",
     ];
     return (
         <>
@@ -130,22 +135,23 @@ const Products = () => {
                                             <FormControl>
                                                 <RadioGroup
                                                     aria-labelledby="price-radio-buttons-group"
-                                                    onChange={(e, newPrice) => {
+                                                    onChange={(e) => {
                                                         const price =
-                                                            newPrice.split(",");
+                                                            e.target.value.split(
+                                                                ","
+                                                            );
                                                         const price2 = [
                                                             +price[0],
                                                             +price[1],
                                                         ];
-                                                        // console.log(price2);
                                                         setPrice(price2);
                                                     }}
                                                     name="price-radio-buttons"
-                                                    value={price}
+                                                    value={price.join(", ")}
                                                 >
-                                                    {priceList.map((el, i) => (
+                                                    {priceList2.map((el, i) => (
                                                         <FormControlLabel
-                                                            value={el.price}
+                                                            value={el}
                                                             control={
                                                                 <Radio size="small" />
                                                             }
@@ -154,7 +160,19 @@ const Products = () => {
                                                                     className="text-sm"
                                                                     key={i}
                                                                 >
-                                                                    {el.label}
+                                                                    {el ===
+                                                                    "0, 1000000"
+                                                                        ? "Dưới 1 triệu"
+                                                                        : el ===
+                                                                          "1000000, 3000000"
+                                                                        ? "Từ 1 đến 3 triệu"
+                                                                        : el ===
+                                                                          "3000000, 5000000"
+                                                                        ? "Từ 3 đến 5 triệu"
+                                                                        : el ===
+                                                                          "5000000, 8000000"
+                                                                        ? "Từ 5 đến 8 triệu"
+                                                                        : "Trên 8 triệu"}
                                                                 </span>
                                                             }
                                                         />
