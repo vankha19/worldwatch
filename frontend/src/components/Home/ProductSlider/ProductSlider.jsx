@@ -23,7 +23,7 @@ const ProductSlider = ({
             (product) => product.category === valueFilter
         );
     }
-    if (filterKey === "brand") {
+    if (filterKey === "brand.name") {
         newProducts = products.filter(
             (product) => product.brand.name === valueFilter
         );

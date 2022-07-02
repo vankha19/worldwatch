@@ -27,7 +27,7 @@ const Header = () => {
             >
                 {/* <!-- logo & search container --> */}
                 <div className="flex items-center ">
-                    <Link className="h-7 mr-1 sm:mr-4" to="/">
+                    <Link className=" cursor-pointer h-7 mr-1 sm:mr-4" to="/">
                         <img
                             draggable="false"
                             className="h-full w-full object-contain"

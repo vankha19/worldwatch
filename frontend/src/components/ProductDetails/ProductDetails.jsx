@@ -679,7 +679,7 @@ const ProductDetails = () => {
                             <ProductSlider
                                 title={"Sản phẩm cùng thương hiệu"}
                                 tagline={""}
-                                filterKey="brand"
+                                filterKey="brand.name"
                                 valueFilter={product?.brand?.name || ""}
                             />
                         </div>
