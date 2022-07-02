@@ -50,7 +50,7 @@ export const loginUser = (email, password) => async (dispatch) => {
         };
 
         const { data } = await axios.post(
-            "/api/v1/login",
+            "https://world-watch.herokuapp.com/api/v1/login",
             { email, password },
             config
         );
