@@ -14,17 +14,17 @@ const ProductSlider = ({
     const { loading, products } = useSelector((state) => state.products);
     let newProducts;
     if (filterKey === "gender") {
-        newProducts = products.filter(
+        newProducts = products?.filter(
             (product) => product.gender === valueFilter
         );
     }
     if (filterKey === "category") {
-        newProducts = products.filter(
+        newProducts = products?.filter(
             (product) => product.category === valueFilter
         );
     }
     if (filterKey === "brand.name") {
-        newProducts = products.filter(
+        newProducts = products?.filter(
             (product) => product.brand.name === valueFilter
         );
     }

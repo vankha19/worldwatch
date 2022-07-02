@@ -40,12 +40,6 @@ import NotFound from "./components/NotFound";
 function App() {
     const dispatch = useDispatch();
     const { pathname } = useLocation();
-    // const [stripeApiKey, setStripeApiKey] = useState("");
-
-    // async function getStripeApiKey() {
-    //   const { data } = await axios.get('/api/v1/stripeapikey');
-    //   setStripeApiKey(data.stripeApiKey);
-    // }
 
     useEffect(() => {
         WebFont.load({
