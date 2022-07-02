@@ -72,7 +72,7 @@ const UpdateUser = () => {
             dispatch(clearErrors());
         }
         if (isUpdated) {
-            enqueueSnackbar("User Updates Successfully", {
+            enqueueSnackbar("Cập nhật thông tin user thành công", {
                 variant: "success",
             });
             dispatch({ type: UPDATE_USER_RESET });

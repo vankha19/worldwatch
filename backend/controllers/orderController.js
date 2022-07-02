@@ -12,7 +12,7 @@ exports.newOrder = asyncErrorHandler(async (req, res, next) => {
     const orderExist = await Order.findOne({ paymentInfo });
 
     if (orderExist) {
-        return next(new ErrorHandler("Order Already Placed", 400));
+        return next(new ErrorHandler("Đơn hàng đã tồn tại", 400));
     }
 
     const order = await Order.create({
@@ -51,7 +51,7 @@ exports.getSingleOrderDetails = asyncErrorHandler(async (req, res, next) => {
     );
 
     if (!order) {
-        return next(new ErrorHandler("Order Not Found", 404));
+        return next(new ErrorHandler("Đơn hàng không tồn tại", 404));
     }
 
     res.status(200).json({
@@ -65,7 +65,7 @@ exports.myOrders = asyncErrorHandler(async (req, res, next) => {
     const orders = await Order.find({ user: req.user._id });
 
     if (!orders) {
-        return next(new ErrorHandler("Order Not Found", 404));
+        return next(new ErrorHandler("Đơn hàng không tồn tại", 404));
     }
 
     res.status(200).json({
@@ -79,7 +79,7 @@ exports.getAllOrders = asyncErrorHandler(async (req, res, next) => {
     const orders = await Order.find();
 
     if (!orders) {
-        return next(new ErrorHandler("Order Not Found", 404));
+        return next(new ErrorHandler("Đơn hàng không tồn tại", 404));
     }
 
     let totalAmount = 0;
@@ -99,11 +99,11 @@ exports.updateOrder = asyncErrorHandler(async (req, res, next) => {
     const order = await Order.findById(req.params.id);
 
     if (!order) {
-        return next(new ErrorHandler("Order Not Found", 404));
+        return next(new ErrorHandler("Đơn hàng không tồn tại", 404));
     }
 
     if (order.orderStatus === "Delivered") {
-        return next(new ErrorHandler("Already Delivered", 400));
+        return next(new ErrorHandler("Đơn hàng đã được giao", 400));
     }
 
     if (req.body.status === "Shipped") {
@@ -136,7 +136,7 @@ exports.deleteOrder = asyncErrorHandler(async (req, res, next) => {
     const order = await Order.findById(req.params.id);
 
     if (!order) {
-        return next(new ErrorHandler("Order Not Found", 404));
+        return next(new ErrorHandler("Đơn hàng không tồn tại", 404));
     }
 
     await order.remove();

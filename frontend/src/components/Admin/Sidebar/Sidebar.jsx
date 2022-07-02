@@ -83,7 +83,7 @@ const Sidebar = ({ activeTab, setToggleSidebar }) => {
 
     const handleLogout = () => {
         dispatch(logoutUser());
-        enqueueSnackbar("Logout Successfully", { variant: "success" });
+        enqueueSnackbar("Đăng xuất", { variant: "success" });
         navigate("/login");
     };
 

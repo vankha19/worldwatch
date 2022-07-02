@@ -25,13 +25,15 @@ const ResetPassword = () => {
         e.preventDefault();
 
         if (newPassword.length < 8) {
-            enqueueSnackbar("Password length must be atleast 8 characters", {
+            enqueueSnackbar("Mật khẩu phải có ít nhất 8 kí tự", {
                 variant: "warning",
             });
             return;
         }
         if (newPassword !== confirmPassword) {
-            enqueueSnackbar("Password Doesn't Match", { variant: "error" });
+            enqueueSnackbar("Mật khẩu chưa trùng nhau, vui lòng nhập lại!", {
+                variant: "error",
+            });
             return;
         }
 
@@ -47,7 +49,7 @@ const ResetPassword = () => {
             dispatch(clearErrors());
         }
         if (success) {
-            enqueueSnackbar("Password Updated Successfully", {
+            enqueueSnackbar("Thay đổi mật khẩu thành công", {
                 variant: "success",
             });
             navigate("/login");

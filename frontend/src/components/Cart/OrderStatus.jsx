@@ -1,13 +1,16 @@
-import { useSnackbar } from 'notistack';
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate, useParams } from 'react-router-dom';
-import { emptyCart } from '../../actions/cartAction';
-import { clearErrors, getPaymentStatus, newOrder } from '../../actions/orderAction';
-import Loader from '../Layouts/Loader';
+import { useSnackbar } from "notistack";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate, useParams } from "react-router-dom";
+import { emptyCart } from "../../actions/cartAction";
+import {
+    clearErrors,
+    getPaymentStatus,
+    newOrder,
+} from "../../actions/orderAction";
+import Loader from "../Layouts/Loader";
 
 const OrderStatus = () => {
-
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const { enqueueSnackbar } = useSnackbar();
@@ -16,29 +19,37 @@ const OrderStatus = () => {
     const { shippingInfo, cartItems } = useSelector((state) => state.cart);
 
     const { loading, txn, error } = useSelector((state) => state.paymentStatus);
-    const { loading: orderLoading, order, error: orderError } = useSelector((state) => state.newOrder);
+    const {
+        loading: orderLoading,
+        order,
+        error: orderError,
+    } = useSelector((state) => state.newOrder);
 
-    const totalPrice = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+    const totalPrice = cartItems.reduce(
+        (sum, item) => sum + item.price * item.quantity,
+        0
+    );
 
     const orderData = {
         shippingInfo,
         orderItems: cartItems,
         totalPrice,
-    }
+    };
 
     useEffect(() => {
         if (loading === false) {
-            if(txn) {
+            if (txn) {
                 if (txn.status === "TXN_SUCCESS") {
                     orderData.paymentInfo = {
                         id: txn.id,
                         status: txn.status,
                     };
-    
+
                     dispatch(newOrder(orderData));
-    
                 } else {
-                    enqueueSnackbar("Processing Payment Failed!", { variant: "error" });
+                    enqueueSnackbar("Thanh toán thất bại!", {
+                        variant: "error",
+                    });
                     navigate("/orders/failed");
                 }
             } else {
@@ -46,12 +57,12 @@ const OrderStatus = () => {
             }
         }
         // eslint-disable-next-line
-    }, [loading])
+    }, [loading]);
 
     useEffect(() => {
         if (orderLoading === false) {
             if (order) {
-                enqueueSnackbar("Order Placed", { variant: "success" });
+                enqueueSnackbar("Đặt hàng thành công", { variant: "success" });
                 dispatch(emptyCart());
                 navigate("/orders/success");
             } else {
@@ -59,7 +70,7 @@ const OrderStatus = () => {
             }
         }
         // eslint-disable-next-line
-    }, [orderLoading])
+    }, [orderLoading]);
 
     useEffect(() => {
         if (error) {
@@ -73,9 +84,7 @@ const OrderStatus = () => {
         dispatch(getPaymentStatus(params.id));
     }, [dispatch, error, orderError, params.id, enqueueSnackbar]);
 
-    return (
-        <Loader />
-    );
+    return <Loader />;
 };
 
 export default OrderStatus;

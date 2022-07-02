@@ -34,19 +34,19 @@ exports.loginUser = asyncErrorHandler(async (req, res, next) => {
     const { email, password } = req.body;
 
     if (!email || !password) {
-        return next(new ErrorHandler("Please Enter Email And Password", 400));
+        return next(new ErrorHandler("Vui lòng nhập thông tin đăng nhập", 400));
     }
 
     const user = await User.findOne({ email }).select("+password");
 
     if (!user) {
-        return next(new ErrorHandler("Invalid Email or Password", 401));
+        return next(new ErrorHandler("Email hoặc mật khẩu không đúng", 401));
     }
 
     const isPasswordMatched = await user.comparePassword(password);
 
     if (!isPasswordMatched) {
-        return next(new ErrorHandler("Invalid Email or Password", 401));
+        return next(new ErrorHandler("Email hoặc mật khẩu không đúng", 401));
     }
 
     sendToken(user, 201, res);
@@ -80,7 +80,7 @@ exports.forgotPassword = asyncErrorHandler(async (req, res, next) => {
     const user = await User.findOne({ email: req.body.email });
 
     if (!user) {
-        return next(new ErrorHandler("User Not Found", 404));
+        return next(new ErrorHandler("Tài khoản không tồn tại", 404));
     }
 
     const resetToken = await user.getResetPasswordToken();
@@ -105,7 +105,7 @@ exports.forgotPassword = asyncErrorHandler(async (req, res, next) => {
 
         res.status(200).json({
             success: true,
-            message: `Email sent to ${user.email} successfully`,
+            message: `Đã gửi mail tới ${user.email}`,
         });
     } catch (error) {
         user.resetPasswordToken = undefined;
@@ -130,7 +130,7 @@ exports.resetPassword = asyncErrorHandler(async (req, res, next) => {
     });
 
     if (!user) {
-        return next(new ErrorHandler("Invalid reset password token", 404));
+        return next(new ErrorHandler("Đã xảy ra lỗi vui lòng thử lại", 404));
     }
 
     user.password = req.body.password;
@@ -148,7 +148,7 @@ exports.updatePassword = asyncErrorHandler(async (req, res, next) => {
     const isPasswordMatched = await user.comparePassword(req.body.oldPassword);
 
     if (!isPasswordMatched) {
-        return next(new ErrorHandler("Old Password is Invalid", 400));
+        return next(new ErrorHandler("Đã xảy ra lỗi vui lòng thử lại", 400));
     }
 
     user.password = req.body.newPassword;
@@ -210,12 +210,7 @@ exports.getSingleUser = asyncErrorHandler(async (req, res, next) => {
     const user = await User.findById(req.params.id);
 
     if (!user) {
-        return next(
-            new ErrorHandler(
-                `User doesn't exist with id: ${req.params.id}`,
-                404
-            )
-        );
+        return next(new ErrorHandler(`Tài khoản này không tồn tại`, 404));
     }
 
     res.status(200).json({
@@ -249,12 +244,7 @@ exports.deleteUser = asyncErrorHandler(async (req, res, next) => {
     const user = await User.findById(req.params.id);
 
     if (!user) {
-        return next(
-            new ErrorHandler(
-                `User doesn't exist with id: ${req.params.id}`,
-                404
-            )
-        );
+        return next(new ErrorHandler(`Tài khoản này không tồn tại`, 404));
     }
 
     await user.remove();

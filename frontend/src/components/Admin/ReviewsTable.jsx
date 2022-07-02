@@ -43,7 +43,7 @@ const ReviewsTable = () => {
             dispatch(clearErrors());
         }
         if (isDeleted) {
-            enqueueSnackbar("Review Deleted Successfully", {
+            enqueueSnackbar("Xoá review thành công", {
                 variant: "success",
             });
             dispatch({ type: DELETE_REVIEW_RESET });

@@ -122,7 +122,7 @@ const Products = () => {
                             <div className="flex flex-col gap-2 py-3 text-sm overflow-hidden">
                                 {/* price slider filter */}
                                 <div className="flex flex-col gap-2 border-b px-4">
-                                    <span className="font-medium text-xs">
+                                    <span className="font-medium text-xs uppercase">
                                         Giá
                                     </span>
                                     {
@@ -145,7 +145,6 @@ const Products = () => {
                                                 >
                                                     {priceList.map((el, i) => (
                                                         <FormControlLabel
-                                                            key={i}
                                                             value={el.price}
                                                             control={
                                                                 <Radio size="small" />

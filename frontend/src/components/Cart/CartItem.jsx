@@ -21,10 +21,12 @@ const CartItem = ({
 
     const increaseQuantity = (id, quantity, stock) => {
         const newQty = quantity + 1;
-        if (quantity >= stock) {
-            enqueueSnackbar("Maximum Order Quantity", { variant: "warning" });
-            return;
-        }
+        // if (quantity >= stock) {
+        //     enqueueSnackbar("Số lượng sản phẩm còn lại không đủ.", {
+        //         variant: "warning",
+        //     });
+        //     return;
+        // }
         dispatch(addItemsToCart(id, newQty));
     };
 
@@ -36,13 +38,13 @@ const CartItem = ({
 
     const removeCartItem = (id) => {
         dispatch(removeItemsFromCart(id));
-        enqueueSnackbar("Product Removed From Cart", { variant: "success" });
+        enqueueSnackbar("Xoá sản phẩm khỏi giỏ hàng", { variant: "success" });
     };
 
     const saveForLaterHandler = (id) => {
         dispatch(saveForLater(id));
         removeCartItem(id);
-        enqueueSnackbar("Saved For Later", { variant: "success" });
+        enqueueSnackbar("Đã lưu sản phẩm", { variant: "success" });
     };
 
     return (

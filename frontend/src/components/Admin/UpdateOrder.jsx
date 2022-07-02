@@ -48,7 +48,7 @@ const UpdateOrder = () => {
             dispatch(clearErrors());
         }
         if (isUpdated) {
-            enqueueSnackbar("Order Updates Successfully", {
+            enqueueSnackbar("Cập nhật đơn hàng thành công", {
                 variant: "success",
             });
             dispatch({ type: UPDATE_ORDER_RESET });

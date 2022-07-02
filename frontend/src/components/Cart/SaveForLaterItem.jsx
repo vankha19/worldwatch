@@ -19,13 +19,13 @@ const SaveForLaterItem = ({
 
     const removeFromSaveForLaterHandler = (id) => {
         dispatch(removeFromSaveForLater(id));
-        enqueueSnackbar("Removed From Save For Later", { variant: "success" });
+        enqueueSnackbar("Xoá sản phẩm đã lưu", { variant: "success" });
     };
 
     const moveToCartHandler = (id, quantity) => {
         dispatch(addItemsToCart(id, quantity));
         removeFromSaveForLaterHandler(id);
-        enqueueSnackbar("Product Added To Cart", { variant: "success" });
+        enqueueSnackbar("Thêm sản phẩm vào giỏ hàng", { variant: "success" });
     };
 
     return (

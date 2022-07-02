@@ -93,19 +93,24 @@ const MyOrders = () => {
         }
         // eslint-disable-next-line
     }, [status, orderTime]);
-
+    console.log(orders);
     const searchOrders = (e) => {
         e.preventDefault();
         if (!search.trim()) {
-            enqueueSnackbar("Empty Input", { variant: "warning" });
+            enqueueSnackbar("Vui lòng nhập mã đơn hàng", {
+                variant: "warning",
+            });
             return;
         }
-        const arr = orders.map((el) => ({
-            ...el,
-            orderItems: el.orderItems.filter((order) =>
-                order.name.toLowerCase().includes(search.toLowerCase())
-            ),
-        }));
+        // const arr = orders.filter((el) => ({
+        //     ...el,
+        //     orderItems: el.orderItems.filter((order) =>
+        //         order.name.toLowerCase().includes(search.toLowerCase())
+        //     ),
+        // }));
+        const arr = orders.filter((el) =>
+            el._id.includes(search.toLowerCase())
+        );
         setFilteredOrders(arr);
     };
 
@@ -236,8 +241,9 @@ const MyOrders = () => {
                                     <div className="flex items-center flex-col gap-2 p-8 bg-white">
                                         <img
                                             draggable="false"
-                                            src="https://rukminim1.flixcart.com/www/100/100/promos/23/08/2020/c5f14d2a-2431-4a36-b6cb-8b5b5e283d4f.png"
+                                            src="https://deo.shopeemobile.com/shopee/shopee-pcmall-live-sg//assets/a60759ad1dabe909c46a817ecbf71878.png"
                                             alt="Empty Orders"
+                                            style={{ width: "80px" }}
                                         />
                                         <span className="text-lg font-medium">
                                             Không có kết quả
@@ -260,10 +266,11 @@ const MyOrders = () => {
                                             return (
                                                 <Link
                                                     to={`/order_details/${_id}`}
-                                                    className="flex p-4 items-start bg-white border rounded gap-2 sm:gap-0 hover:shadow-lg"
+                                                    className={`flex p-4 items-start  border-[1px] rounded gap-2 sm:gap-0 hover:shadow-lg 
+                                                   `}
                                                 >
                                                     {/* <!-- image container --> */}
-                                                    <div className="w-full sm:w-32 h-20">
+                                                    <div className="w-full sm:w-32 h-20 ">
                                                         <img
                                                             draggable="false"
                                                             className="h-full w-full object-contain"
@@ -274,9 +281,22 @@ const MyOrders = () => {
                                                             alt="Product image"
                                                         />
                                                     </div>
-                                                    <div className="flex flex-col sm:flex-row justify-between w-full">
+                                                    <div className="flex flex-col sm:flex-row justify-between w-full ">
                                                         <div className="flex flex-col gap-1 overflow-hidden">
-                                                            <p className="text-sm">
+                                                            <p
+                                                                className={`text-sm ${
+                                                                    orderStatus ===
+                                                                    "Cancel"
+                                                                        ? "text-[#dc2626]"
+                                                                        : orderStatus ===
+                                                                          "Processing"
+                                                                        ? "text-[#f59e0b]"
+                                                                        : orderStatus ===
+                                                                          "Shipped"
+                                                                        ? "text-[#22c55e]"
+                                                                        : "text-[#0ea5e9]"
+                                                                }`}
+                                                            >
                                                                 Mã đơn hàng:{" "}
                                                                 {_id}
                                                             </p>

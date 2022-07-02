@@ -60,7 +60,7 @@ const UpdateProfile = () => {
             dispatch(clearErrors());
         }
         if (isUpdated) {
-            enqueueSnackbar("Profile Updated Successfully", {
+            enqueueSnackbar("Cập nhật thông tin thành công", {
                 variant: "success",
             });
             dispatch(loadUser());

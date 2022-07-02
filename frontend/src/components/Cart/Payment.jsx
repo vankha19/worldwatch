@@ -65,7 +65,7 @@ const Payment = () => {
 
                 dispatch(emptyCart());
                 // cartItems = [];
-                enqueueSnackbar("Success", { variant: "success" });
+                enqueueSnackbar("Đặt hàng thành công", { variant: "success" });
                 // navigate("/cart");
                 navigate("/orders");
             } else {

@@ -35,7 +35,7 @@ const ProductTable = () => {
             dispatch(clearErrors());
         }
         if (isDeleted) {
-            enqueueSnackbar("Product Deleted Successfully", {
+            enqueueSnackbar("Xoá sản phẩm thành công", {
                 variant: "success",
             });
             dispatch({ type: DELETE_PRODUCT_RESET });

@@ -29,7 +29,7 @@ const UserTable = () => {
             dispatch(clearErrors());
         }
         if (isDeleted) {
-            enqueueSnackbar("User Deleted Successfully", {
+            enqueueSnackbar("Xoá user thành công", {
                 variant: "success",
             });
             dispatch({ type: DELETE_USER_RESET });

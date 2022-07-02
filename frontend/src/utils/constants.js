@@ -7,6 +7,56 @@ export const categories = [
     "Phụ kiện",
 ];
 
+export const catNav = [
+    {
+        name: "BabyG",
+    },
+    {
+        name: "Cole",
+    },
+    {
+        name: "Casio",
+    },
+    {
+        name: "Citizen",
+    },
+    {
+        name: "DW",
+    },
+    {
+        name: "Ediffice",
+    },
+    {
+        name: "Fossil",
+    },
+    {
+        name: "GSock",
+    },
+    {
+        name: "Julius",
+    },
+    {
+        name: "MVMT",
+    },
+    {
+        name: "Ogibal",
+    },
+    {
+        name: "Orient",
+    },
+    {
+        name: "Olym Pianus",
+    },
+    {
+        name: "Seiko",
+    },
+    {
+        name: "Skagen",
+    },
+    {
+        name: "Tisot",
+    },
+];
 // Product Sliders Offers
 export const offerProducts = [
     {

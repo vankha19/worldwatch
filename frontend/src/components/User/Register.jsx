@@ -36,17 +36,19 @@ const Register = () => {
     const handleRegister = (e) => {
         e.preventDefault();
         if (password.length < 8) {
-            enqueueSnackbar("Password length must be atleast 8 characters", {
+            enqueueSnackbar("Mật khẩu phải có ít nhất 8 kí tự", {
                 variant: "warning",
             });
             return;
         }
         if (password !== cpassword) {
-            enqueueSnackbar("Password Doesn't Match", { variant: "error" });
+            enqueueSnackbar("Mật khẩu chưa trùng nhau, vui lòng nhập lại!", {
+                variant: "error",
+            });
             return;
         }
         if (!avatar) {
-            enqueueSnackbar("Select Avatar", { variant: "error" });
+            enqueueSnackbar("Vui lòng chọn avatar", { variant: "error" });
             return;
         }
 

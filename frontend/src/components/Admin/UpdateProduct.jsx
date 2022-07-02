@@ -16,7 +16,7 @@ import {
 } from "../../actions/productAction";
 import ImageIcon from "@mui/icons-material/Image";
 import BackdropLoader from "../Layouts/BackdropLoader";
-import { categories } from "../../utils/constants";
+import { categories, catNav } from "../../utils/constants";
 import MetaData from "../Layouts/MetaData";
 
 const UpdateProduct = () => {
@@ -124,11 +124,13 @@ const UpdateProduct = () => {
 
         // required field checks
         if (highlights.length <= 0) {
-            enqueueSnackbar("Add Highlights", { variant: "warning" });
+            enqueueSnackbar("Vui lòng nhập điểm đặc biệt của sản phẩm", {
+                variant: "warning",
+            });
             return;
         }
         if (specs.length <= 1) {
-            enqueueSnackbar("Add Minimum 2 Specifications", {
+            enqueueSnackbar("Vui lòng nhập tối thiểu 3 thông số", {
                 variant: "warning",
             });
             return;
@@ -193,7 +195,7 @@ const UpdateProduct = () => {
             dispatch(clearErrors());
         }
         if (isUpdated) {
-            enqueueSnackbar("Product Updated Successfully", {
+            enqueueSnackbar("Cập nhật thông tin sản phẩm thành công", {
                 variant: "success",
             });
             dispatch({ type: UPDATE_PRODUCT_RESET });

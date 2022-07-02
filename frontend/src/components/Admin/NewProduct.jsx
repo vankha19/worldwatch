@@ -109,21 +109,25 @@ const NewProduct = () => {
 
         // required field checks
         if (highlights.length <= 0) {
-            enqueueSnackbar("Add Highlights", { variant: "warning" });
+            enqueueSnackbar("Vui lòng thêm điểm đặc biệt", {
+                variant: "warning",
+            });
             return;
         }
         if (!logo) {
-            enqueueSnackbar("Add Brand Logo", { variant: "warning" });
+            enqueueSnackbar("Vui lòng thêm logo", { variant: "warning" });
             return;
         }
         if (specs.length <= 1) {
-            enqueueSnackbar("Add Minimum 2 Specifications", {
+            enqueueSnackbar("Nhập tối thiểu 3 thông số", {
                 variant: "warning",
             });
             return;
         }
         if (images.length <= 0) {
-            enqueueSnackbar("Add Product Images", { variant: "warning" });
+            enqueueSnackbar("Vui lòng thêm ảnh sản phẩm", {
+                variant: "warning",
+            });
             return;
         }
 
@@ -162,7 +166,7 @@ const NewProduct = () => {
             dispatch(clearErrors());
         }
         if (success) {
-            enqueueSnackbar("Product Created", { variant: "success" });
+            enqueueSnackbar("Thêm sản phẩm thành công", { variant: "success" });
             dispatch({ type: NEW_PRODUCT_RESET });
             navigate("/admin/products");
         }

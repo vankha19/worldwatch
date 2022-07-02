@@ -97,7 +97,7 @@ const OrderDetails = () => {
                                             <h4 className="font-medium">
                                                 Người nhận: {order.user.name}
                                             </h4>
-                                            <p className="text-sm">{`Địa chỉ: ${order.shippingInfo.address}, ${order.shippingInfo.city}, ${order.shippingInfo.state} - ${order.shippingInfo.pincode}`}</p>
+                                            <p className="text-sm">{`Địa chỉ: ${order.shippingInfo.address}, ${order.shippingInfo.city}`}</p>
                                             <div className="flex gap-2 text-sm">
                                                 <p className="font-medium">
                                                     Email:
@@ -146,24 +146,30 @@ const OrderDetails = () => {
                                             )}
                                         </div>
                                     </div>
-                                    <div className="flex flex-col w-full sm:w-1/2 justify-center">
-                                        <h3 className="font-medium sm:text-center">
+                                    <div className="flex flex-col w-full sm:w-1/2 justify-around">
+                                        <h3 className="font-medium text-lg  sm:text-center">
                                             Trạng thái đơn hàng
                                         </h3>
-                                        <TrackStepper
-                                            orderOn={order.createdAt}
-                                            shippedAt={order.shippedAt}
-                                            deliveredAt={order.deliveredAt}
-                                            activeStep={
-                                                order.orderStatus ===
-                                                "Delivered"
-                                                    ? 2
-                                                    : order.orderStatus ===
-                                                      "Shipped"
-                                                    ? 1
-                                                    : 0
-                                            }
-                                        />
+                                        {order.orderStatus !== "Cancel" ? (
+                                            <TrackStepper
+                                                orderOn={order.createdAt}
+                                                shippedAt={order.shippedAt}
+                                                deliveredAt={order.deliveredAt}
+                                                activeStep={
+                                                    order.orderStatus ===
+                                                    "Delivered"
+                                                        ? 2
+                                                        : order.orderStatus ===
+                                                          "Shipped"
+                                                        ? 1
+                                                        : 0
+                                                }
+                                            />
+                                        ) : (
+                                            <h3 className="font-medium text-lg text-[#dc2626]  sm:text-center">
+                                                Đơn hàng đã huỷ
+                                            </h3>
+                                        )}
                                     </div>
                                 </div>
 

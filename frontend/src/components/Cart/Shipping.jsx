@@ -31,7 +31,7 @@ const Shipping = () => {
         e.preventDefault();
 
         if (phoneNo.length < 9 || phoneNo.length > 11) {
-            enqueueSnackbar("Invalid Phone Number", { variant: "error" });
+            enqueueSnackbar("Số điện thoại không hợp lệ", { variant: "error" });
             return;
         }
         dispatch(

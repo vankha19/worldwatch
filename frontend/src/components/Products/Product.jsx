@@ -28,10 +28,14 @@ const Product = ({
     const addToWishlistHandler = () => {
         if (itemInWishlist) {
             dispatch(removeFromWishlist(_id));
-            enqueueSnackbar("Remove From Wishlist", { variant: "success" });
+            enqueueSnackbar("Xoá sản phẩm khỏi danh sách yêu thích", {
+                variant: "success",
+            });
         } else {
             dispatch(addToWishlist(_id));
-            enqueueSnackbar("Added To Wishlist", { variant: "success" });
+            enqueueSnackbar("Thêm sản phẩm vào danh sách yêu thích", {
+                variant: "success",
+            });
         }
     };
 

@@ -34,7 +34,7 @@ const OrderTable = () => {
             dispatch(clearErrors());
         }
         if (isDeleted) {
-            enqueueSnackbar("Deleted Successfully", { variant: "success" });
+            enqueueSnackbar("Xoá đơn hàng thành công", { variant: "success" });
             dispatch({ type: DELETE_ORDER_RESET });
         }
         dispatch(getAllOrders());

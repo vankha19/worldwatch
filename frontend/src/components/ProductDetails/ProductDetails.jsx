@@ -103,16 +103,20 @@ const ProductDetails = () => {
     const addToWishlistHandler = () => {
         if (itemInWishlist) {
             dispatch(removeFromWishlist(productId));
-            enqueueSnackbar("Remove From Wishlist", { variant: "success" });
+            enqueueSnackbar("Xoá sản phẩm khỏi danh sách yêu thích", {
+                variant: "success",
+            });
         } else {
             dispatch(addToWishlist(productId));
-            enqueueSnackbar("Added To Wishlist", { variant: "success" });
+            enqueueSnackbar("Thêm sản phẩm vào danh sách yêu thích", {
+                variant: "success",
+            });
         }
     };
 
     const reviewSubmitHandler = () => {
         if (rating === 0 || !comment.trim()) {
-            enqueueSnackbar("Empty Review", { variant: "error" });
+            enqueueSnackbar("Vui lòng nhập review", { variant: "error" });
             return;
         }
         const formData = new FormData();
@@ -125,7 +129,7 @@ const ProductDetails = () => {
 
     const addToCartHandler = () => {
         dispatch(addItemsToCart(productId));
-        enqueueSnackbar("Product Added To Cart", { variant: "success" });
+        enqueueSnackbar("Thêm sản phẩm vào giỏ hàng", { variant: "success" });
     };
 
     const handleDialogClose = () => {
@@ -153,7 +157,7 @@ const ProductDetails = () => {
             dispatch(clearErrors());
         }
         if (success) {
-            enqueueSnackbar("Review Submitted Successfully", {
+            enqueueSnackbar("Review thành công", {
                 variant: "success",
             });
             dispatch({ type: NEW_REVIEW_RESET });
@@ -165,7 +169,6 @@ const ProductDetails = () => {
     useEffect(() => {
         dispatch(getSimilarProducts(product?.category));
     }, [dispatch, product, product.category]);
-    console.log(product.brand);
     return (
         <>
             {loading ? (
@@ -677,7 +680,7 @@ const ProductDetails = () => {
                                 title={"Sản phẩm cùng thương hiệu"}
                                 tagline={""}
                                 filterKey="brand"
-                                // valueFilter={product.brand.name || ""}
+                                valueFilter={product?.brand?.name || ""}
                             />
                         </div>
                     </main>

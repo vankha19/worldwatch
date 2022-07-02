@@ -522,31 +522,30 @@ const MinCategory = (props) => {
                     <span className="text-gray-400 group-hover:text-primary-blue">
                         <ExpandMoreIcon sx={{ fontSize: "16px" }} />
                     </span>
-                    <ul className="absolute top-10 left-0 bg-black w-max mt-14 opacity-0 invisible z-[1000] group-hover:opacity-100 group-hover:visible group-hover:mt-0 transition-all duration-500">
+                    <ul className="absolute  z-[1000] top-10 left-0 bg-white w-max mt-14 opacity-0 invisible group-hover:opacity-100 group-hover:visible group-hover:mt-0 transition-all duration-500">
                         <li>
-                            <a href="" className="menu-sub-item">
-                                Dropdown menu
-                            </a>
+                            <Link
+                                to="/products?material=Inox"
+                                className="menu-sub-item"
+                            >
+                                Dây Kim Loại
+                            </Link>
                         </li>
                         <li>
-                            <a href="" className="menu-sub-item">
-                                Dropdown menu
-                            </a>
+                            <Link
+                                to="/products?material=Leather"
+                                className="menu-sub-item"
+                            >
+                                Dây Da
+                            </Link>
                         </li>
                         <li className="sub-dropdown relative">
-                            <a href="" className="menu-sub-item">
-                                Dropdown menu
-                            </a>
-                        </li>
-                        <li>
-                            <a href="" className="menu-sub-item">
-                                Dropdown menu
-                            </a>
-                        </li>
-                        <li>
-                            <a href="" className="menu-sub-item">
-                                Dropdown menu
-                            </a>
+                            <Link
+                                to="/products?material=Caosu"
+                                className="menu-sub-item"
+                            >
+                                Dây Cao Su
+                            </Link>
                         </li>
                     </ul>
                 </Link>{" "}
